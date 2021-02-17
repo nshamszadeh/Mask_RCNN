@@ -45,7 +45,8 @@ class_names = [
     'teddy bear', 'hair drier', 'toothbrush'
 ]
 
-#class_names = ['person', 'car', 'bus', 'truck', 'traffic light', 'stop sign', 'backpack', 'umbrella', 'handbag', 'suitcase']
+#vehicles = ['car', 'bus', 'truck', 'boat', 'train', 'airplane', 'motorcycle']
+
 
 
 def get_mask(image, mask):
@@ -65,18 +66,20 @@ def display_mask(image, boxes, masks, ids, names, scores):
         take the image and results and apply the mask, box, and Label
     """
     n_instances = boxes.shape[0]
-    if n_instances == 0:
+    if not n_instances: 
         print('NO OBJECTS DETECTED')
-        image *= 0
-    elif not n_instances: 
-        print('NO INSTANCES TO DISPLAY (MASK)')
         image *= 0
     else:
         print(n_instances, " objects detected.")
         assert boxes.shape[0] == masks.shape[-1] == ids.shape[0]
         mask = masks[:, :, 0]
+        """
+        if names[ids[0]] not in vehicles:
+            mask = mask * 0
+        """
         # loop through each detected object and add (logical or) their individual masks to the main image mask
         for i in range(1, n_instances):
+            #if names[ids[i]] in vehicles:
             mask = np.logical_or(mask, masks[:, :, i])
             print(names[ids[i]]) # prints each detected object to the console
         image = get_mask(image, mask)

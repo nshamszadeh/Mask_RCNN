@@ -12,7 +12,7 @@ args = parser.parse_args()
 capture = cv2.VideoCapture(args.video)
 size = (int(capture.get(cv2.CAP_PROP_FRAME_WIDTH)), int(capture.get(cv2.CAP_PROP_FRAME_HEIGHT)))
 codec = cv2.VideoWriter_fourcc(*'DIVX')
-maskout = cv2.VideoWriter('mask.avi', codec, 30.0, size)
+maskout = cv2.VideoWriter('../mask.avi', codec, 30.0, size)
 
 frameCount = 0
 while(capture.isOpened()):
